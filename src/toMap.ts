@@ -60,3 +60,11 @@ export function stringMap<TItem>(): StringMap<TItem> {
 export function numberMap<TItem>(): NumberMap<TItem> {
   return { ...map };
 }
+
+export function objectToStringMap<TItem>(src: StringMap<TItem>): StringMap<TItem> {
+  return { ...map, ...src };
+}
+
+export function objectToNumberMap<TItem>(src: NumberMap<TItem>): NumberMap<TItem> {
+  return { ...map, ...src };
+}

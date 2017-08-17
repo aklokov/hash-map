@@ -6,3 +6,5 @@ export declare function toStringLookup<TItem>(items: TItem[], selector: string |
 export declare function toNumberLookup<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem[]>;
 export declare function stringMap<TItem>(): StringMap<TItem>;
 export declare function numberMap<TItem>(): NumberMap<TItem>;
+export declare function objectToStringMap<TItem>(src: StringMap<TItem>): StringMap<TItem>;
+export declare function objectToNumberMap<TItem>(src: NumberMap<TItem>): NumberMap<TItem>;

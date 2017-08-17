@@ -56,4 +56,12 @@ function numberMap() {
     return Object.assign({}, map);
 }
 exports.numberMap = numberMap;
+function objectToStringMap(src) {
+    return Object.assign({}, map, src);
+}
+exports.objectToStringMap = objectToStringMap;
+function objectToNumberMap(src) {
+    return Object.assign({}, map, src);
+}
+exports.objectToNumberMap = objectToNumberMap;
 //# sourceMappingURL=toMap.js.map
