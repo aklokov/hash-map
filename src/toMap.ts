@@ -1,12 +1,12 @@
 import { isFunction } from './isFunction';
-import { StringMap, NumberMap } from './interfaces';
+import { StringMap, NumberMap, Map } from './interfaces';
 export type selector<TKey, TItem> = ((item: TItem) => TKey);
 
 function getSelector<TKey, TItem>(selector: string | selector<TKey, TItem>): selector<TKey, TItem> {
   return isFunction(selector) ? <selector<TKey, TItem>>selector : item => item[<string>selector];
 }
 
-const map = createMap();
+const mapObj = createMap();
 
 function createMap(): any {
   const result = {};
@@ -53,18 +53,22 @@ export function toNumberLookup<TItem>(items: TItem[], selector: string | selecto
   return result;
 }
 
+export function map(): Map {
+  return { ...mapObj };
+}
+
 export function stringMap<TItem>(): StringMap<TItem> {
-  return { ...map };
+  return { ...mapObj };
 }
 
 export function numberMap<TItem>(): NumberMap<TItem> {
-  return { ...map };
+  return { ...mapObj };
 }
 
 export function objectToStringMap<TItem>(src: StringMap<TItem>): StringMap<TItem> {
-  return { ...map, ...src };
+  return { ...mapObj, ...src };
 }
 
 export function objectToNumberMap<TItem>(src: NumberMap<TItem>): NumberMap<TItem> {
-  return { ...map, ...src };
+  return { ...mapObj, ...src };
 }

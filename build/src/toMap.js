@@ -4,7 +4,7 @@ const isFunction_1 = require("./isFunction");
 function getSelector(selector) {
     return isFunction_1.isFunction(selector) ? selector : item => item[selector];
 }
-const map = createMap();
+const mapObj = createMap();
 function createMap() {
     const result = {};
     for (var prop of Object.getOwnPropertyNames(Object.prototype)) {
@@ -48,20 +48,24 @@ function toNumberLookup(items, selector) {
     return result;
 }
 exports.toNumberLookup = toNumberLookup;
+function map() {
+    return Object.assign({}, mapObj);
+}
+exports.map = map;
 function stringMap() {
-    return Object.assign({}, map);
+    return Object.assign({}, mapObj);
 }
 exports.stringMap = stringMap;
 function numberMap() {
-    return Object.assign({}, map);
+    return Object.assign({}, mapObj);
 }
 exports.numberMap = numberMap;
 function objectToStringMap(src) {
-    return Object.assign({}, map, src);
+    return Object.assign({}, mapObj, src);
 }
 exports.objectToStringMap = objectToStringMap;
 function objectToNumberMap(src) {
-    return Object.assign({}, map, src);
+    return Object.assign({}, mapObj, src);
 }
 exports.objectToNumberMap = objectToNumberMap;
 //# sourceMappingURL=toMap.js.map

@@ -1,4 +1,5 @@
-export interface Map extends StringMap<string> {
+export interface Map {
+    [id: string]: string;
 }
 export interface StringMap<TValue> {
     [id: string]: TValue;
