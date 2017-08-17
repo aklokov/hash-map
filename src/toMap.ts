@@ -17,40 +17,38 @@ function createMap(): any {
   return result;
 }
 
+function populateMap<TMap, TItem>(map: TMap, selector: any, items: TItem[]): TMap {
+  items.forEach(item => map[selector(item)] = item);
+  return map;
+}
+
 export function toStringMap<TItem>(items: TItem[], selector: string | selector<string, TItem>): StringMap<TItem> {
-  const s = getSelector(selector);
-  const result = stringMap<TItem>();
-  items.forEach(item => result[s(item)] = item);
-  return result;
+  return populateMap(stringMap<TItem>(), getSelector(selector), items);
 }
 
 export function toNumberMap<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem> {
-  const s = getSelector(selector);
-  const result = numberMap<TItem>();
-  items.forEach(item => result[s(item)] = item);
-  return result;
+  return populateMap(numberMap<TItem>(), getSelector(selector), items);
+}
+
+export function toMap(items: string[], selector: string | selector<string, string>): Map {
+  return populateMap(map(), getSelector(selector), items);
+}
+
+function populateLookup<TMap, TItem>(map: TMap, selector: any, items: TItem[]): TMap {
+  items.forEach(item => {
+    const key = selector(item);
+    const list = map[key] || (map[key] = []);
+    list.push(item);
+  });
+  return map;
 }
 
 export function toStringLookup<TItem>(items: TItem[], selector: string | selector<string, TItem>): StringMap<TItem[]> {
-  const s = getSelector(selector);
-  const result = stringMap<TItem[]>();
-  items.forEach(item => {
-    const key = s(item);
-    const list = result[key] || (result[key] = []);
-    list.push(item);
-  });
-  return result;
+  return populateLookup(stringMap<TItem[]>(), getSelector(selector), items);
 }
 
 export function toNumberLookup<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem[]> {
-  const s = getSelector(selector);
-  const result = numberMap<TItem[]>();
-  items.forEach(item => {
-    const key = s(item);
-    const list = result[key] || (result[key] = []);
-    list.push(item);
-  });
-  return result;
+  return populateLookup(numberMap<TItem[]>(), getSelector(selector), items);
 }
 
 export function map(): Map {
@@ -63,6 +61,10 @@ export function stringMap<TItem>(): StringMap<TItem> {
 
 export function numberMap<TItem>(): NumberMap<TItem> {
   return { ...mapObj };
+}
+
+export function objectToMap(src: Map): Map {
+  return { ...mapObj, ...src };
 }
 
 export function objectToStringMap<TItem>(src: StringMap<TItem>): StringMap<TItem> {

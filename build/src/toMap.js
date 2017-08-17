@@ -12,40 +12,36 @@ function createMap() {
     }
     return result;
 }
+function populateMap(map, selector, items) {
+    items.forEach(item => map[selector(item)] = item);
+    return map;
+}
 function toStringMap(items, selector) {
-    const s = getSelector(selector);
-    const result = stringMap();
-    items.forEach(item => result[s(item)] = item);
-    return result;
+    return populateMap(stringMap(), getSelector(selector), items);
 }
 exports.toStringMap = toStringMap;
 function toNumberMap(items, selector) {
-    const s = getSelector(selector);
-    const result = numberMap();
-    items.forEach(item => result[s(item)] = item);
-    return result;
+    return populateMap(numberMap(), getSelector(selector), items);
 }
 exports.toNumberMap = toNumberMap;
-function toStringLookup(items, selector) {
-    const s = getSelector(selector);
-    const result = stringMap();
+function toMap(items, selector) {
+    return populateMap(map(), getSelector(selector), items);
+}
+exports.toMap = toMap;
+function populateLookup(map, selector, items) {
     items.forEach(item => {
-        const key = s(item);
-        const list = result[key] || (result[key] = []);
+        const key = selector(item);
+        const list = map[key] || (map[key] = []);
         list.push(item);
     });
-    return result;
+    return map;
+}
+function toStringLookup(items, selector) {
+    return populateLookup(stringMap(), getSelector(selector), items);
 }
 exports.toStringLookup = toStringLookup;
 function toNumberLookup(items, selector) {
-    const s = getSelector(selector);
-    const result = numberMap();
-    items.forEach(item => {
-        const key = s(item);
-        const list = result[key] || (result[key] = []);
-        list.push(item);
-    });
-    return result;
+    return populateLookup(numberMap(), getSelector(selector), items);
 }
 exports.toNumberLookup = toNumberLookup;
 function map() {
@@ -60,6 +56,10 @@ function numberMap() {
     return Object.assign({}, mapObj);
 }
 exports.numberMap = numberMap;
+function objectToMap(src) {
+    return Object.assign({}, mapObj, src);
+}
+exports.objectToMap = objectToMap;
 function objectToStringMap(src) {
     return Object.assign({}, mapObj, src);
 }
