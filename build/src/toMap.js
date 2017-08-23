@@ -12,36 +12,48 @@ function createMap() {
     }
     return result;
 }
-function populateMap(map, selector, items) {
-    items.forEach(item => map[selector(item)] = item);
+function populateMap(map, key, items) {
+    items.forEach(item => map[key(item)] = item);
     return map;
 }
-function toStringMap(items, selector) {
-    return populateMap(stringMap(), getSelector(selector), items);
+function populateDict(map, key, val, items) {
+    items.forEach(item => map[key(item)] = val(item));
+    return map;
 }
-exports.toStringMap = toStringMap;
-function toNumberMap(items, selector) {
-    return populateMap(numberMap(), getSelector(selector), items);
-}
-exports.toNumberMap = toNumberMap;
-function toMap(items, selector) {
-    return populateMap(map(), getSelector(selector), items);
-}
-exports.toMap = toMap;
-function populateLookup(map, selector, items) {
+function populateLookup(map, key, items) {
     items.forEach(item => {
-        const key = selector(item);
-        const list = map[key] || (map[key] = []);
+        const k = key(item);
+        const list = map[k] || (map[k] = []);
         list.push(item);
     });
     return map;
 }
-function toStringLookup(items, selector) {
-    return populateLookup(stringMap(), getSelector(selector), items);
+function toStringDict(items, key, val) {
+    return populateDict(stringMap(), getSelector(key), getSelector(val), items);
+}
+exports.toStringDict = toStringDict;
+function toNumberDict(items, key, val) {
+    return populateDict(numberMap(), getSelector(key), getSelector(val), items);
+}
+exports.toNumberDict = toNumberDict;
+function toStringMap(items, key) {
+    return populateMap(stringMap(), getSelector(key), items);
+}
+exports.toStringMap = toStringMap;
+function toNumberMap(items, key) {
+    return populateMap(numberMap(), getSelector(key), items);
+}
+exports.toNumberMap = toNumberMap;
+function toMap(items, key) {
+    return populateMap(map(), getSelector(key), items);
+}
+exports.toMap = toMap;
+function toStringLookup(items, key) {
+    return populateLookup(stringMap(), getSelector(key), items);
 }
 exports.toStringLookup = toStringLookup;
-function toNumberLookup(items, selector) {
-    return populateLookup(numberMap(), getSelector(selector), items);
+function toNumberLookup(items, key) {
+    return populateLookup(numberMap(), getSelector(key), items);
 }
 exports.toNumberLookup = toNumberLookup;
 function map() {

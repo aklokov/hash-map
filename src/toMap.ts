@@ -1,9 +1,13 @@
 import { isFunction } from './isFunction';
 import { StringMap, NumberMap, Map } from './interfaces';
-export type selector<TKey, TItem> = ((item: TItem) => TKey);
 
-function getSelector<TKey, TItem>(selector: string | selector<TKey, TItem>): selector<TKey, TItem> {
-  return isFunction(selector) ? <selector<TKey, TItem>>selector : item => item[<string>selector];
+
+export type s<TK, TI> = ((item: TI) => TK);
+export type ss<TI> = string | s<string, TI>;
+export type ns<TI> = string | s<number, TI>;
+
+function getSelector<TK, TI>(selector: string | s<TK, TI>): s<TK, TI> {
+  return isFunction(selector) ? <s<TK, TI>>selector : item => item[<string>selector];
 }
 
 const mapObj = createMap();
@@ -17,49 +21,62 @@ function createMap(): any {
   return result;
 }
 
-function populateMap<TMap, TItem>(map: TMap, selector: any, items: TItem[]): TMap {
-  items.forEach(item => map[selector(item)] = item);
+function populateMap(map: any, key: any, items: any[]): any {
+  items.forEach(item => map[key(item)] = item);
   return map;
 }
 
-export function toStringMap<TItem>(items: TItem[], selector: string | selector<string, TItem>): StringMap<TItem> {
-  return populateMap(stringMap<TItem>(), getSelector(selector), items);
+function populateDict(map: any, key: any, val: any, items: any[]): any {
+  items.forEach(item => map[key(item)] = val(item));
+  return map;
 }
 
-export function toNumberMap<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem> {
-  return populateMap(numberMap<TItem>(), getSelector(selector), items);
-}
-
-export function toMap(items: string[], selector: string | selector<string, string>): Map {
-  return populateMap(map(), getSelector(selector), items);
-}
-
-function populateLookup<TMap, TItem>(map: TMap, selector: any, items: TItem[]): TMap {
+function populateLookup(map: any, key: any, items: any[]): any {
   items.forEach(item => {
-    const key = selector(item);
-    const list = map[key] || (map[key] = []);
+    const k = key(item);
+    const list = map[k] || (map[k] = []);
     list.push(item);
   });
   return map;
 }
 
-export function toStringLookup<TItem>(items: TItem[], selector: string | selector<string, TItem>): StringMap<TItem[]> {
-  return populateLookup(stringMap<TItem[]>(), getSelector(selector), items);
+export function toStringDict<TI, TV>(items: TI[], key: ss<TI>, val: string | s<TV, TI>): StringMap<TV> {
+  return populateDict(stringMap<TV>(), getSelector(key), getSelector(val), items);
 }
 
-export function toNumberLookup<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem[]> {
-  return populateLookup(numberMap<TItem[]>(), getSelector(selector), items);
+export function toNumberDict<TI, TV>(items: TI[], key: ns<TI>, val: string | s<TV, TI>): NumberMap<TV> {
+  return populateDict(numberMap<TV>(), getSelector(key), getSelector(val), items);
+}
+
+export function toStringMap<TI>(items: TI[], key: ss<TI>): StringMap<TI> {
+  return populateMap(stringMap<TI>(), getSelector(key), items);
+}
+
+export function toNumberMap<TI>(items: TI[], key: ns<TI>): NumberMap<TI> {
+  return populateMap(numberMap<TI>(), getSelector(key), items);
+}
+
+export function toMap(items: string[], key: ss<string>): Map {
+  return populateMap(map(), getSelector(key), items);
+}
+
+export function toStringLookup<TI>(items: TI[], key: ss<TI>): StringMap<TI[]> {
+  return populateLookup(stringMap<TI[]>(), getSelector(key), items);
+}
+
+export function toNumberLookup<TI>(items: TI[], key: ns<TI>): NumberMap<TI[]> {
+  return populateLookup(numberMap<TI[]>(), getSelector(key), items);
 }
 
 export function map(): Map {
   return { ...mapObj };
 }
 
-export function stringMap<TItem>(): StringMap<TItem> {
+export function stringMap<TI>(): StringMap<TI> {
   return { ...mapObj };
 }
 
-export function numberMap<TItem>(): NumberMap<TItem> {
+export function numberMap<TI>(): NumberMap<TI> {
   return { ...mapObj };
 }
 
@@ -67,10 +84,10 @@ export function objectToMap(src: Map): Map {
   return { ...mapObj, ...src };
 }
 
-export function objectToStringMap<TItem>(src: StringMap<TItem>): StringMap<TItem> {
+export function objectToStringMap<TI>(src: StringMap<TI>): StringMap<TI> {
   return { ...mapObj, ...src };
 }
 
-export function objectToNumberMap<TItem>(src: NumberMap<TItem>): NumberMap<TItem> {
+export function objectToNumberMap<TI>(src: NumberMap<TI>): NumberMap<TI> {
   return { ...mapObj, ...src };
 }
