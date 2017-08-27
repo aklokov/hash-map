@@ -1,14 +1,8 @@
 import { StringMap, NumberMap, Map } from './interfaces';
-export declare type s<TK, TI> = ((item: TI) => TK);
-export declare type ss<TI> = string | s<string, TI>;
-export declare type ns<TI> = string | s<number, TI>;
-export declare function toStringDict<TI, TV>(items: TI[], key: ss<TI>, val: string | s<TV, TI>): StringMap<TV>;
-export declare function toNumberDict<TI, TV>(items: TI[], key: ns<TI>, val: string | s<TV, TI>): NumberMap<TV>;
+import { ss, ns } from './ref';
 export declare function toStringMap<TI>(items: TI[], key: ss<TI>): StringMap<TI>;
 export declare function toNumberMap<TI>(items: TI[], key: ns<TI>): NumberMap<TI>;
 export declare function toMap(items: string[], key: ss<string>): Map;
-export declare function toStringLookup<TI>(items: TI[], key: ss<TI>): StringMap<TI[]>;
-export declare function toNumberLookup<TI>(items: TI[], key: ns<TI>): NumberMap<TI[]>;
 export declare function map(): Map;
 export declare function stringMap<TI>(): StringMap<TI>;
 export declare function numberMap<TI>(): NumberMap<TI>;

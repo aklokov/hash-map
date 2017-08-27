@@ -14,20 +14,6 @@ describe('toNumberMap', function (): void {
     expect(map[2]).to.be.equal(src[1]);
     expect(map[3]).to.be.equal(undefined);
   });
-
-  it('should work with string', async function (): Promise<void> {
-    // arrange
-    const src = [{ id: 1 }, { id: 2 }];
-
-    // act
-    const map = toNumberMap(src, 'id');
-
-    // assert
-    expect(map[1]).to.be.equal(src[0]);
-    expect(map[2]).to.be.equal(src[1]);
-    expect(map[3]).to.be.equal(undefined);
-  });
-
 });
 
 describe('toStringLookup', function (): void {
@@ -36,7 +22,7 @@ describe('toStringLookup', function (): void {
     const src = [{ type: 'list' }, { type: 'list' }, { type: 'item' }];
 
     // act
-    const map = toStringLookup(src, item => item.type);
+    const map = toStringLookup(src, item => item.type, item => item);
 
     // assert
     expect(map['list']).to.be.deep.equal([src[0], src[1]]);
