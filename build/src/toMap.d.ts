@@ -1,8 +1,8 @@
 import { StringMap, NumberMap, Map } from './interfaces';
-import { ss, ns } from './ref';
-export declare function toStringMap<TI>(items: TI[], key: ss<TI>): StringMap<TI>;
-export declare function toNumberMap<TI>(items: TI[], key: ns<TI>): NumberMap<TI>;
-export declare function toMap(items: string[], key: ss<string>): Map;
+import { stringSelector, numberSelector } from './ref';
+export declare function toStringMap<TI>(items: TI[], key: stringSelector<TI>): StringMap<TI>;
+export declare function toNumberMap<TI>(items: TI[], key: numberSelector<TI>): NumberMap<TI>;
+export declare function toMap(items: string[], key: stringSelector<string>): Map;
 export declare function map(): Map;
 export declare function stringMap<TI>(): StringMap<TI>;
 export declare function numberMap<TI>(): NumberMap<TI>;

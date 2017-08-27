@@ -1,20 +1,20 @@
 import { StringMap, NumberMap, Map } from './interfaces';
-import { s, ss, ns, mapObj } from './ref';
+import { selector, stringSelector, numberSelector, mapObj } from './ref';
 
 function populateMap(map: any, key: any, items: any[]): any {
   items.forEach(item => map[key(item)] = item);
   return map;
 }
 
-export function toStringMap<TI>(items: TI[], key: ss<TI>): StringMap<TI> {
+export function toStringMap<TI>(items: TI[], key: stringSelector<TI>): StringMap<TI> {
   return populateMap({ ...mapObj }, key, items);
 }
 
-export function toNumberMap<TI>(items: TI[], key: ns<TI>): NumberMap<TI> {
+export function toNumberMap<TI>(items: TI[], key: numberSelector<TI>): NumberMap<TI> {
   return populateMap({ ...mapObj }, key, items);
 }
 
-export function toMap(items: string[], key: ss<string>): Map {
+export function toMap(items: string[], key: stringSelector<string>): Map {
   return populateMap({ ...mapObj }, key, items);
 }
 

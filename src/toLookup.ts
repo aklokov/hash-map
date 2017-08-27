@@ -1,5 +1,5 @@
 import { StringMap, NumberMap } from '.';
-import { s, ss, ns, mapObj } from './ref';
+import { selector, stringSelector, numberSelector, mapObj } from './ref';
 
 function populateLookup(map: any, key: any, val: any, items: any[]): any {
   items.forEach(item => {
@@ -10,10 +10,10 @@ function populateLookup(map: any, key: any, val: any, items: any[]): any {
   return map;
 }
 
-export function toStringLookup<TI, TV>(items: TI[], key: ss<TI>, val: s<TV, TI>): StringMap<TV[]> {
+export function toStringLookup<TI, TV>(items: TI[], key: stringSelector<TI>, val: selector<TV, TI>): StringMap<TV[]> {
   return populateLookup({ ...mapObj }, key, val, items);
 }
 
-export function toNumberLookup<TI, TV>(items: TI[], key: ns<TI>, val: s<TV, TI>): NumberMap<TV[]> {
+export function toNumberLookup<TI, TV>(items: TI[], key: numberSelector<TI>, val: selector<TV, TI>): NumberMap<TV[]> {
   return populateLookup({ ...mapObj }, key, val, items);
 }
