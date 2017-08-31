@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/repinvv/hash-map.git"
   },
-  "author": "vladimir repin",
+  "author": "Vladimir Repin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/repinvv/hash-map/issues"
