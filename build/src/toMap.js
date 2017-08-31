@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ref_1 = require("./ref");
 function populateMap(map, key, items) {
-    items.forEach(item => map[key(item)] = item);
+    if (Array.isArray(items)) {
+        items.forEach(item => map[key(item)] = item);
+    }
     return map;
 }
 function toStringMap(items, key) {

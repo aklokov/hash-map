@@ -14,4 +14,9 @@ describe('toNumberMap', function (): void {
     expect(map[2]).to.be.equal(src[1]);
     expect(map[3]).to.be.equal(undefined);
   });
+
+  it('should not throw for null', async function (): Promise<void> {
+    // act
+    const map = toNumberMap<number>(null, item => item);
+  });
 });

@@ -2,7 +2,9 @@ import { StringMap, NumberMap, Map } from './interfaces';
 import { selector, stringSelector, numberSelector, mapObj } from './ref';
 
 function populateMap(map: any, key: any, items: any[]): any {
-  items.forEach(item => map[key(item)] = item);
+  if (Array.isArray(items)) {
+    items.forEach(item => map[key(item)] = item);
+  }
   return map;
 }
 

@@ -2,7 +2,9 @@ import { StringMap, NumberMap } from '.';
 import { selector, stringSelector, numberSelector, mapObj } from './ref';
 
 function populateDict(map: any, key: any, val: any, items: any[]): any {
-  items.forEach(item => map[key(item)] = val(item));
+  if (Array.isArray(items)) {
+    items.forEach(item => map[key(item)] = val(item));
+  }
   return map;
 }
 

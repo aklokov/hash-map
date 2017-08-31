@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ref_1 = require("./ref");
 function populateLookup(map, key, val, items) {
-    items.forEach(item => {
-        const k = key(item);
-        const list = map[k] || (map[k] = []);
-        list.push(val(item));
-    });
+    if (Array.isArray(items)) {
+        items.forEach(item => {
+            const k = key(item);
+            const list = map[k] || (map[k] = []);
+            list.push(val(item));
+        });
+    }
     return map;
 }
 function toStringLookup(items, key, val) {

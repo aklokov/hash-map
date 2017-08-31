@@ -2,11 +2,13 @@ import { StringMap, NumberMap } from '.';
 import { selector, stringSelector, numberSelector, mapObj } from './ref';
 
 function populateLookup(map: any, key: any, val: any, items: any[]): any {
-  items.forEach(item => {
-    const k = key(item);
-    const list = map[k] || (map[k] = []);
-    list.push(val(item));
-  });
+  if (Array.isArray(items)) {
+    items.forEach(item => {
+      const k = key(item);
+      const list = map[k] || (map[k] = []);
+      list.push(val(item));
+    });
+  }
   return map;
 }
 
