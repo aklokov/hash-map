@@ -1,70 +1,43 @@
-import { isFunction } from './isFunction';
-import { StringMap, NumberMap } from './interfaces';
-export type selector<TKey, TItem> = ((item: TItem) => TKey);
+import { StringMap, NumberMap, Map } from './interfaces';
+import { selector, stringSelector, numberSelector, mapObj } from './ref';
 
-function getSelector<TKey, TItem>(selector: string | selector<TKey, TItem>): selector<TKey, TItem> {
-  return isFunction(selector) ? <selector<TKey, TItem>>selector : item => item[<string>selector];
+function populateMap(map: any, key: any, items: any[]): any {
+  items.forEach(item => map[key(item)] = item);
+  return map;
 }
 
-const map = createMap();
-
-function createMap(): any {
-  const result = {};
-  for (var prop of Object.getOwnPropertyNames(Object.prototype)) {
-    result[prop] = undefined;
-  }
-
-  return result;
+export function toStringMap<TI>(items: TI[], key: stringSelector<TI>): StringMap<TI> {
+  return populateMap({ ...mapObj }, key, items);
 }
 
-export function toStringMap<TItem>(items: TItem[], selector: string | selector<string, TItem>): StringMap<TItem> {
-  const s = getSelector(selector);
-  const result = stringMap<TItem>();
-  items.forEach(item => result[s(item)] = item);
-  return result;
+export function toNumberMap<TI>(items: TI[], key: numberSelector<TI>): NumberMap<TI> {
+  return populateMap({ ...mapObj }, key, items);
 }
 
-export function toNumberMap<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem> {
-  const s = getSelector(selector);
-  const result = numberMap<TItem>();
-  items.forEach(item => result[s(item)] = item);
-  return result;
+export function toMap(items: string[], key: stringSelector<string>): Map {
+  return populateMap({ ...mapObj }, key, items);
 }
 
-export function toStringLookup<TItem>(items: TItem[], selector: string | selector<string, TItem>): StringMap<TItem[]> {
-  const s = getSelector(selector);
-  const result = stringMap<TItem[]>();
-  items.forEach(item => {
-    const key = s(item);
-    const list = result[key] || (result[key] = []);
-    list.push(item);
-  });
-  return result;
+export function map(): Map {
+  return { ...mapObj };
 }
 
-export function toNumberLookup<TItem>(items: TItem[], selector: string | selector<number, TItem>): NumberMap<TItem[]> {
-  const s = getSelector(selector);
-  const result = numberMap<TItem[]>();
-  items.forEach(item => {
-    const key = s(item);
-    const list = result[key] || (result[key] = []);
-    list.push(item);
-  });
-  return result;
+export function stringMap<TI>(): StringMap<TI> {
+  return { ...mapObj };
 }
 
-export function stringMap<TItem>(): StringMap<TItem> {
-  return { ...map };
+export function numberMap<TI>(): NumberMap<TI> {
+  return { ...mapObj };
 }
 
-export function numberMap<TItem>(): NumberMap<TItem> {
-  return { ...map };
+export function objectToMap(src: Map): Map {
+  return { ...mapObj, ...src };
 }
 
-export function objectToStringMap<TItem>(src: StringMap<TItem>): StringMap<TItem> {
-  return { ...map, ...src };
+export function objectToStringMap<TI>(src: StringMap<TI>): StringMap<TI> {
+  return { ...mapObj, ...src };
 }
 
-export function objectToNumberMap<TItem>(src: NumberMap<TItem>): NumberMap<TItem> {
-  return { ...map, ...src };
+export function objectToNumberMap<TI>(src: NumberMap<TI>): NumberMap<TI> {
+  return { ...mapObj, ...src };
 }

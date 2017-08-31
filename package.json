@@ -1,14 +1,13 @@
 {
   "name": "hash-map",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "wrapper around 'object as hashmap'",
   "files": [
     "build/src"
   ],
   "main": "build/src/index.js",
-  "typings": "build/src/index",  
-  "scripts": {    
-  },
+  "typings": "build/src/index",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/repinvv/hash-map.git"

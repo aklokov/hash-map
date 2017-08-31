@@ -1,67 +1,44 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const isFunction_1 = require("./isFunction");
-function getSelector(selector) {
-    return isFunction_1.isFunction(selector) ? selector : item => item[selector];
+const ref_1 = require("./ref");
+function populateMap(map, key, items) {
+    items.forEach(item => map[key(item)] = item);
+    return map;
 }
-const map = createMap();
-function createMap() {
-    const result = {};
-    for (var prop of Object.getOwnPropertyNames(Object.prototype)) {
-        result[prop] = undefined;
-    }
-    return result;
-}
-function toStringMap(items, selector) {
-    const s = getSelector(selector);
-    const result = stringMap();
-    items.forEach(item => result[s(item)] = item);
-    return result;
+function toStringMap(items, key) {
+    return populateMap(Object.assign({}, ref_1.mapObj), key, items);
 }
 exports.toStringMap = toStringMap;
-function toNumberMap(items, selector) {
-    const s = getSelector(selector);
-    const result = numberMap();
-    items.forEach(item => result[s(item)] = item);
-    return result;
+function toNumberMap(items, key) {
+    return populateMap(Object.assign({}, ref_1.mapObj), key, items);
 }
 exports.toNumberMap = toNumberMap;
-function toStringLookup(items, selector) {
-    const s = getSelector(selector);
-    const result = stringMap();
-    items.forEach(item => {
-        const key = s(item);
-        const list = result[key] || (result[key] = []);
-        list.push(item);
-    });
-    return result;
+function toMap(items, key) {
+    return populateMap(Object.assign({}, ref_1.mapObj), key, items);
 }
-exports.toStringLookup = toStringLookup;
-function toNumberLookup(items, selector) {
-    const s = getSelector(selector);
-    const result = numberMap();
-    items.forEach(item => {
-        const key = s(item);
-        const list = result[key] || (result[key] = []);
-        list.push(item);
-    });
-    return result;
+exports.toMap = toMap;
+function map() {
+    return Object.assign({}, ref_1.mapObj);
 }
-exports.toNumberLookup = toNumberLookup;
+exports.map = map;
 function stringMap() {
-    return Object.assign({}, map);
+    return Object.assign({}, ref_1.mapObj);
 }
 exports.stringMap = stringMap;
 function numberMap() {
-    return Object.assign({}, map);
+    return Object.assign({}, ref_1.mapObj);
 }
 exports.numberMap = numberMap;
+function objectToMap(src) {
+    return Object.assign({}, ref_1.mapObj, src);
+}
+exports.objectToMap = objectToMap;
 function objectToStringMap(src) {
-    return Object.assign({}, map, src);
+    return Object.assign({}, ref_1.mapObj, src);
 }
 exports.objectToStringMap = objectToStringMap;
 function objectToNumberMap(src) {
-    return Object.assign({}, map, src);
+    return Object.assign({}, ref_1.mapObj, src);
 }
 exports.objectToNumberMap = objectToNumberMap;
 //# sourceMappingURL=toMap.js.map
