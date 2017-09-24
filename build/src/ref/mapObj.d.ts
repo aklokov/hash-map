@@ -1,1 +1,1 @@
-export declare const mapObj: any;
+export declare function createMapObj(): any;

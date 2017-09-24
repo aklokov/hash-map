@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { toNumberMap, toStringLookup } from '../src';
+import { noValue } from './noValue';
 
 describe('toNumberMap', function (): void {
   it('should return map with needed values', async function (): Promise<void> {
@@ -12,7 +13,7 @@ describe('toNumberMap', function (): void {
     // assert
     expect(map[1]).to.be.equal(src[0]);
     expect(map[2]).to.be.equal(src[1]);
-    expect(map[3]).to.be.equal(undefined);
+    expect(noValue(map[3])).to.be.equal(true);
   });
 
   it('should not throw for null', async function (): Promise<void> {

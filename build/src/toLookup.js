@@ -12,11 +12,11 @@ function populateLookup(map, key, val, items) {
     return map;
 }
 function toStringLookup(items, key, val) {
-    return populateLookup(Object.assign({}, ref_1.mapObj), key, val, items);
+    return populateLookup(ref_1.createMapObj(), key, val, items);
 }
 exports.toStringLookup = toStringLookup;
 function toNumberLookup(items, key, val) {
-    return populateLookup(Object.assign({}, ref_1.mapObj), key, val, items);
+    return populateLookup(ref_1.createMapObj(), key, val, items);
 }
 exports.toNumberLookup = toNumberLookup;
 //# sourceMappingURL=toLookup.js.map

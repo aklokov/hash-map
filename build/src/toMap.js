@@ -8,39 +8,39 @@ function populateMap(map, key, items) {
     return map;
 }
 function toStringMap(items, key) {
-    return populateMap(Object.assign({}, ref_1.mapObj), key, items);
+    return populateMap(ref_1.createMapObj(), key, items);
 }
 exports.toStringMap = toStringMap;
 function toNumberMap(items, key) {
-    return populateMap(Object.assign({}, ref_1.mapObj), key, items);
+    return populateMap(ref_1.createMapObj(), key, items);
 }
 exports.toNumberMap = toNumberMap;
 function toMap(items, key) {
-    return populateMap(Object.assign({}, ref_1.mapObj), key, items);
+    return populateMap(ref_1.createMapObj(), key, items);
 }
 exports.toMap = toMap;
 function map() {
-    return Object.assign({}, ref_1.mapObj);
+    return ref_1.createMapObj();
 }
 exports.map = map;
 function stringMap() {
-    return Object.assign({}, ref_1.mapObj);
+    return ref_1.createMapObj();
 }
 exports.stringMap = stringMap;
 function numberMap() {
-    return Object.assign({}, ref_1.mapObj);
+    return ref_1.createMapObj();
 }
 exports.numberMap = numberMap;
 function objectToMap(src) {
-    return Object.assign({}, ref_1.mapObj, src);
+    return Object.assign({}, ref_1.createMapObj(), src);
 }
 exports.objectToMap = objectToMap;
 function objectToStringMap(src) {
-    return Object.assign({}, ref_1.mapObj, src);
+    return Object.assign({}, ref_1.createMapObj(), src);
 }
 exports.objectToStringMap = objectToStringMap;
 function objectToNumberMap(src) {
-    return Object.assign({}, ref_1.mapObj, src);
+    return Object.assign({}, ref_1.createMapObj(), src);
 }
 exports.objectToNumberMap = objectToNumberMap;
 //# sourceMappingURL=toMap.js.map

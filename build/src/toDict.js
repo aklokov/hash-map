@@ -8,11 +8,11 @@ function populateDict(map, key, val, items) {
     return map;
 }
 function toStringDict(items, key, val) {
-    return populateDict(Object.assign({}, ref_1.mapObj), key, val, items);
+    return populateDict(ref_1.createMapObj(), key, val, items);
 }
 exports.toStringDict = toStringDict;
 function toNumberDict(items, key, val) {
-    return populateDict(Object.assign({}, ref_1.mapObj), key, val, items);
+    return populateDict(ref_1.createMapObj(), key, val, items);
 }
 exports.toNumberDict = toNumberDict;
 //# sourceMappingURL=toDict.js.map

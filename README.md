@@ -10,7 +10,7 @@ let b = a[key] || 'defaultValue';
 expect(b).to.be.equal('defaultValue'); // fails
 ```
 
-Does not make any wrappers around objects, therefore no usage overhead is implied. It just hides all underlying object properties with undefined value
+Does not make any wrappers around objects, therefore no usage overhead is implied. It just hides all underlying object properties with null value
 
 # Usage
 

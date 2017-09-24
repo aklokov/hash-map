@@ -1,5 +1,5 @@
 import { StringMap, NumberMap } from '.';
-import { selector, stringSelector, numberSelector, mapObj } from './ref';
+import { selector, stringSelector, numberSelector, createMapObj } from './ref';
 
 function populateDict(map: any, key: any, val: any, items: any[]): any {
   if (Array.isArray(items)) {
@@ -9,9 +9,9 @@ function populateDict(map: any, key: any, val: any, items: any[]): any {
 }
 
 export function toStringDict<TI, TV>(items: TI[], key: stringSelector<TI>, val: selector<TV, TI>): StringMap<TV> {
-  return populateDict({ ...mapObj }, key, val, items);
+  return populateDict(createMapObj(), key, val, items);
 }
 
 export function toNumberDict<TI, TV>(items: TI[], key: numberSelector<TI>, val: selector<TV, TI>): NumberMap<TV> {
-  return populateDict({ ...mapObj }, key, val, items);
+  return populateDict(createMapObj(), key, val, items);
 }

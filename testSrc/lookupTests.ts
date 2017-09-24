@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { toNumberMap, toStringLookup, defaultSelector } from '../src';
+import { noValue } from './noValue';
 
 describe('toStringLookup', function (): void {
   it('should return map with needed arrays', async function (): Promise<void> {
@@ -12,7 +13,7 @@ describe('toStringLookup', function (): void {
     // assert
     expect(map['list']).to.be.deep.equal([src[0], src[1]]);
     expect(map['item']).to.be.deep.equal([src[2]]);
-    expect(map['constructor']).to.be.equal(undefined);
+    expect(noValue(map['constructor'])).to.be.equal(true);
   });
 
   it('should with default selector', async function (): Promise<void> {
@@ -25,7 +26,7 @@ describe('toStringLookup', function (): void {
     // assert
     expect(map['list']).to.be.deep.equal([src[0], src[1]]);
     expect(map['item']).to.be.deep.equal([src[2]]);
-    expect(map['constructor']).to.be.equal(undefined);
+    expect(noValue(map['constructor'])).to.be.equal(true);
   });
 
 });

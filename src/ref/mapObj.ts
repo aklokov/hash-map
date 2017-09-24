@@ -1,10 +1,13 @@
+const mapObj = createMap();
 function createMap(): any {
   const result = {};
   for (var prop of Object.getOwnPropertyNames(Object.prototype)) {
-    result[prop] = undefined;
+    result[prop] = null;
   }
 
   return result;
 }
 
-export const mapObj = createMap();
+export function createMapObj(): any {
+  return { ...mapObj };
+}

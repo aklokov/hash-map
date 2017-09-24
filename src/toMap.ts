@@ -1,5 +1,5 @@
 import { StringMap, NumberMap, Map } from './interfaces';
-import { selector, stringSelector, numberSelector, mapObj } from './ref';
+import { selector, stringSelector, numberSelector, createMapObj } from './ref';
 
 function populateMap(map: any, key: any, items: any[]): any {
   if (Array.isArray(items)) {
@@ -9,37 +9,37 @@ function populateMap(map: any, key: any, items: any[]): any {
 }
 
 export function toStringMap<TI>(items: TI[], key: stringSelector<TI>): StringMap<TI> {
-  return populateMap({ ...mapObj }, key, items);
+  return populateMap(createMapObj(), key, items);
 }
 
 export function toNumberMap<TI>(items: TI[], key: numberSelector<TI>): NumberMap<TI> {
-  return populateMap({ ...mapObj }, key, items);
+  return populateMap(createMapObj(), key, items);
 }
 
 export function toMap(items: string[], key: stringSelector<string>): Map {
-  return populateMap({ ...mapObj }, key, items);
+  return populateMap(createMapObj(), key, items);
 }
 
 export function map(): Map {
-  return { ...mapObj };
+  return createMapObj();
 }
 
 export function stringMap<TI>(): StringMap<TI> {
-  return { ...mapObj };
+  return createMapObj();
 }
 
 export function numberMap<TI>(): NumberMap<TI> {
-  return { ...mapObj };
+  return createMapObj();
 }
 
 export function objectToMap(src: Map): Map {
-  return { ...mapObj, ...src };
+  return { ...createMapObj(), ...src };
 }
 
 export function objectToStringMap<TI>(src: StringMap<TI>): StringMap<TI> {
-  return { ...mapObj, ...src };
+  return { ...createMapObj(), ...src };
 }
 
 export function objectToNumberMap<TI>(src: NumberMap<TI>): NumberMap<TI> {
-  return { ...mapObj, ...src };
+  return { ...createMapObj(), ...src };
 }
