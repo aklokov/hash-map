@@ -12,6 +12,23 @@ expect(b).to.be.equal('defaultValue'); // fails
 
 Does not make any wrappers around objects, therefore no usage overhead is implied. It just hides all underlying object properties with null value
 
+# Alternative
+As an alternative, object without prototype can be used.
+```js
+ const map = Object.create(null);
+```
+
+But if you coding in functional style, i.e. do not want to mutate existing object and rather want to create new object with changed props, for instance if you are writing a reducer for redux, then you will want to use 'object spread' feauture, like the following
+```js
+const newMap = {
+  ...map,
+  newField: newValue
+};
+```
+This breaks the testcase again, and you have to write some ugly expression instead of this to avoid the issue.
+Proposed solution, i.e. shielding the props, survives not only 'object spread' operator, it will even survive serialize/deserialize flow.
+As a tradeoff it increases the size of serialized json, as all shielded fields will be present there with 'null' value.
+
 # Usage
 
 map with string as a key
