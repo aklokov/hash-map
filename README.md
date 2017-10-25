@@ -18,14 +18,15 @@ As an alternative, object without prototype can be used.
  const map = Object.create(null);
 ```
 
-But if you coding in functional style, i.e. do not want to mutate existing object and rather want to create new object with changed props, for instance if you are writing a reducer for redux, then you will want to use 'object spread' feauture, like the following
+But if you want to use 'object spread' feauture, like the following, it will break the testcase again. And you have to write some long and ugly expression instead of this to avoid the issue.
 ```js
 const newMap = {
   ...map,
-  newField: newValue
+  newKey: newValue
 };
 ```
-This breaks the testcase again, and you have to write some ugly expression instead of this to avoid the issue.
+Object spread is useful for functional style coding, i.e. when you do not want to mutate existing object and rather want to create new object with changed props, for instance if you are writing a reducer for redux.
+
 Proposed solution, i.e. shielding the props, survives not only 'object spread' operator, it will even survive serialize/deserialize flow.
 As a tradeoff it increases the size of serialized json, as all shielded fields will be present there with 'null' value.
 
@@ -62,7 +63,7 @@ import { toStringDict, toStringLookup, Map, StringMap } from 'hash-map';
 
 const src = [{ key: '1', value: '2' }, { key: '3', value: '4'}, { key: '1', value: '5' }];
 // produces this object: { '1': ['2', '5'], '3': ['4'] }
-const map: StringMap<string[]> = toStringLookup(src, item => item.type, item => item.value);
+const map: StringMap<string[]> = toStringLookup(src, item => item.key, item => item.value);
 
 const src = [{ key: '1', value: '2' }, { key: '3', value: '4'}];
 //produces this object: { '1': '2', '3': '4' }
