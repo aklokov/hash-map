@@ -1,14 +1,14 @@
 import { expect } from 'chai';
-import { stringMap } from '../src';
+import { map, create, IMap } from '../src/objectMap';
 import { noValue } from './noValue';
 
-describe('stringMap', function (): void {
+describe('objectMap/create', function (): void {
   it('should return no value for prototype property', async function (): Promise<void> {
     // arrange
-    const map = stringMap();
+    const result = create<IMap<string>>();
 
     // act
-    const ctor = map['constructor'];
+    const ctor = result['constructor'];
 
     // assert
     expect(noValue(ctor)).to.be.equal(true);
@@ -16,26 +16,14 @@ describe('stringMap', function (): void {
 
   it('should return previously put value', async function (): Promise<void> {
     // arrange
-    const map = stringMap();
-    map['123'] = '234';
+    const result = create<IMap<string>>();
+    result['123'] = '234';
 
     // act
-    const val = map['123'];
+    const val = result['123'];
 
     // assert
     expect(val).to.be.equal('234');
   });
 
-  it('should return no value for prototype property after serialize/deserialize action', async function (): Promise<void> {
-    // arrange
-    const map = stringMap();
-
-    // act
-    const deserialized = JSON.parse(JSON.stringify(map));
-    const ctor = deserialized['constructor'];
-
-    // assert
-    expect(noValue(ctor)).to.be.equal(true);
-  });
 });
-

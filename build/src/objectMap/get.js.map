@@ -1,0 +1,1 @@
+{"version":3,"file":"get.js","sourceRoot":"","sources":["../../../src/objectMap/get.ts"],"names":[],"mappings":";;AAKA,aAAuB,GAA4B,EAAE,GAAoB;IACvE,EAAE,CAAC,CAAC,CAAC,GAAG,CAAC,cAAc,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC;QAC7B,MAAM,CAAC,SAAS,CAAC;IACnB,CAAC;IAED,MAAM,CAAC,GAAG,CAAC,GAAG,CAAC,CAAC;AAClB,CAAC;AAND,kBAMC"}
